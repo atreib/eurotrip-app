@@ -31,6 +31,10 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/
+          # The encrypted attachments the app fetches on demand. They are the reason
+          # index.html is ~250 KB instead of 28 MB — leave them out and the page still
+          # loads but every attachment button 404s. cp fails loudly if a/ is missing.
+          cp -r a _site/a
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5
